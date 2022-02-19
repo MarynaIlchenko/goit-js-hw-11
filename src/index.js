@@ -21,6 +21,6 @@ function onSearch(e) {
   const url = '';
 }
 
-fetch('https://pixabay.com/api/?key=cat', options)
+fetch('https://pixabay.com/api/?key=cat&language=en&per_page=30', options)
   .then(r => r.json())
   .then(console.log);
