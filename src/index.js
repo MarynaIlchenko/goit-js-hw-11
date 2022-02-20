@@ -1,30 +1,11 @@
 // import './sass/main.scss';
 import './sass/styles.scss';
-import galleryCarfTemplate from './templates/gallery-item.hbs';
+import galleryCardTemplate from './templates/gallery-item.hbs';
 import Notiflix from 'notiflix';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
-import axios from 'axios';
-
-const settings = {
-  imagesKey: '25774072-c5897649f594e9daa0e2ccc0a',
-  imagesApiUrl: 'https://pixabay.com/api',
-};
-
-export default settings;
-
-const per_page = 30;
-const parameters = 'image_type=photo&orientation=horizontal&safesearch=true';
-const BASE_URL = `${imagesApiUrl}/?key=${imagesKey}&per_page=${per_page}&${parameters}`;
-
-export const getPictures = async (term, page) => {
-  try {
-    const response = await axios.get(`${BASE_URL}&q=${term}&page=${page}`);
-    return await response.data;
-  } catch (error) {
-    console.log(error);
-  }
-};
+import { getPictures } from './js/api/api-service';
+// import axios from 'axios';
 
 const searchFormRef = document.querySelector('form#search-form');
 const articlesContainerRef = document.querySelector('.js-articles-container');
@@ -62,7 +43,7 @@ function createGalleryWall(images) {
     markUp(images);
     loadBtnRef.hidden = false;
 
-    if (images.hits.length < 30) {
+    if (images.hits.length < 40) {
       endOfListMessage();
       loadBtnRef.hidden = true;
     }
