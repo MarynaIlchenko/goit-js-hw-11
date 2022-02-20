@@ -1,6 +1,6 @@
 // import './sass/main.scss';
 import './sass/styles.scss';
-import galleryCardTemplate from './templates/gallery-item.hbs';
+import gallery from './templates/gallery-item.hbs';
 import Notiflix from 'notiflix';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
@@ -8,7 +8,7 @@ import { getPictures } from './js/api/api-service';
 // import axios from 'axios';
 
 const searchFormRef = document.querySelector('form#search-form');
-const articlesContainerRef = document.querySelector('.js-articles-container');
+const galleryRef = document.querySelector('.gallery');
 const loadBtnRef = document.querySelector('.load');
 let dataInput = '';
 let page = 1;
@@ -22,12 +22,11 @@ loadBtnRef.hidden = true;
 function onSearch(e) {
   e.preventDefault();
   loadBtnRef.hidden = true;
-  articlesContainerRef.innerHTML = '';
+  galleryRef.innerHTML = '';
 
   if (dataInput !== '') {
     getPictures(dataInput).then(createGalleryWall).catch(noResult);
   }
-
   page = 1;
 }
 
@@ -56,8 +55,9 @@ function createGalleryWall(images) {
 
 function markUp(images) {
   images.hits.map(image => {
-    articlesContainerRef.insertAdjacentHTML('beforeend', gallery(images));
+    galleryRef.insertAdjacentHTML('beforeend', gallery(image));
   });
+
   let lightbox = new SimpleLightbox('.photo-card a');
   lightbox.on('show.simplelightbox', function () {});
   lightbox.refresh();
@@ -65,7 +65,7 @@ function markUp(images) {
 
 function onLoad() {
   page += 1;
-  getImages(dataInput, page)
+  getPictures(dataInput, page)
     .then(images => {
       createGalleryWall(images);
       smoothScroll();
