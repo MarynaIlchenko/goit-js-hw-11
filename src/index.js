@@ -5,11 +5,10 @@ import Notiflix from 'notiflix';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import { getPictures } from './js/api/api-service';
-// import axios from 'axios';
 
 const searchFormRef = document.querySelector('form#search-form');
 const galleryRef = document.querySelector('.gallery');
-const loadBtnRef = document.querySelector('.load');
+const loadBtnRef = document.querySelector('.load-more');
 let dataInput = '';
 let page = 1;
 let timerId = null;
@@ -97,9 +96,3 @@ function endOfListMessage() {
     Notiflix.Notify.warning("We're sorry, but you've reached the end of search results.");
   }, 1000);
 }
-//   const form = e.currentTarget.elements.searchQuery.value;
-
-//   fetch(url, options)
-//     .then(r => r.json())
-//     .then(console.log);
-// }
